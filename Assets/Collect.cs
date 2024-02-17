@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BurungScript : MonoBehaviour
+public class Collect : MonoBehaviour
 {
-    public float terbang;
-    public Rigidbody2D myRigidbody;
     public LogicScript logic;
+    public GameObject coin;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +15,13 @@ public class BurungScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)){
-            myRigidbody.velocity = Vector2.up * terbang;
-        }
+        
     }
 
-    private void OnCollisionEnter2D(Collision2D collision){
-        logic.gameover();
+    private void OnTriggerEnter2D(Collider2D collision){
+        if(collision.gameObject.layer == 3){
+            logic.addCoin(1);
+            Destroy(coin);
+        }
     }
 }
